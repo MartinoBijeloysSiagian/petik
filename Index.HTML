@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruang Belajar Sistem Komputer</title>
+<meta name="description" content="Media pembelajaran berbasis website mata pelajaran Sistem Komputer, SMK Telkom 2 Medan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#beranda">
+      <span class="brand-mark">SK</span>
+      <span class="brand-name">Ruang Belajar Sistem Komputer<span class="brand-sub">SMK Telkom 2 Medan</span></span>
+    </a>
+    <nav aria-label="Menu utama" id="topnav" hidden>
+      <a href="#beranda" data-nav="beranda">Beranda</a>
+      <a href="#materi" data-nav="materi">Materi</a>
+      <a href="#kuis" data-nav="kuis">Kuis</a>
+      <a href="#literasi" data-nav="literasi">Literasi Digital</a>
+      <a href="#rekap" data-nav="rekap" id="nav-rekap" hidden>Rekap Nilai</a>
+      <a href="#tentang" data-nav="tentang">Tentang</a>
+    </nav>
+    <div class="userbox" id="userbox" hidden>
+      <span class="who"><b id="who-name"></b><small id="who-class"></small></span>
+      <button class="btn" type="button" id="logout">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- MASUK -->
+<section class="view" id="v-masuk" hidden>
+  <div class="auth">
+    <div class="auth-intro">
+      <div class="eyebrow">SMK Telkom 2 Medan</div>
+      <h1>Masuk ke Ruang Belajar Sistem Komputer</h1>
+      <p>Masuk dengan akunmu supaya progres materi dan nilai kuis tersimpan atas namamu.</p>
+      <ul class="auth-list">
+        <li>Belum punya akun? Pilih tab Daftar dan buat dalam satu menit.</li>
+        <li>Pakai NIS sebagai nama pengguna agar mudah diingat.</li>
+        <li>Progres belajarmu ikut ke perangkat mana pun saat kamu masuk.</li>
+      </ul>
+    </div>
+    <div class="panel auth-card">
+      <div class="tabs" role="tablist" aria-label="Masuk atau daftar">
+        <button type="button" role="tab" id="tab-masuk" aria-selected="true">Masuk</button>
+        <button type="button" role="tab" id="tab-daftar" aria-selected="false">Daftar</button>
+      </div>
+      <form id="auth-form" novalidate>
+        <div class="stack" id="reg-fields" hidden>
+          <label class="fld" for="f-name">Nama lengkap
+            <input type="text" id="f-name" autocomplete="name" placeholder="mis. Siti Aisyah">
+          </label>
+          <label class="fld" for="f-class">Kelas <small>(boleh dikosongkan)</small>
+            <input type="text" id="f-class" autocomplete="off" placeholder="mis. X TJKT 1">
+          </label>
+        </div>
+        <label class="fld" for="f-id">NIS atau nama pengguna
+          <input type="text" id="f-id" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="mis. 2425001">
+        </label>
+        <label class="fld" for="f-pass">Kata sandi
+          <input type="password" id="f-pass" autocomplete="current-password">
+        </label>
+        <label class="fld" for="f-pass2" id="reg-confirm" hidden>Ulangi kata sandi
+          <input type="password" id="f-pass2" autocomplete="new-password">
+        </label>
+        <label class="showpw" for="f-show"><input type="checkbox" id="f-show"> Tampilkan kata sandi</label>
+        <div class="verdict bad" id="auth-msg" role="alert" hidden></div>
+        <button type="submit" class="btn primary" id="auth-submit">Masuk</button>
+      </form>
+      <p class="auth-note">Kata sandimu disimpan dalam bentuk hash di database, bukan teks asli. Tetap jangan memakai kata sandi yang sama dengan akun pentingmu, misalnya email atau media sosial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BERANDA -->
+<section class="view" id="v-beranda">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Mata pelajaran Sistem Komputer</div>
+      <h1>Belajar cara kerja komputer, sambil melatih kecakapan digital.</h1>
+      <p class="lead">Media pembelajaran berbasis website untuk siswa SMK Telkom 2 Medan. Baca materi, coba simulasi biner, kerjakan kuis, lalu uji kebiasaan digitalmu sendiri.</p>
+      <div class="btnrow">
+        <a class="btn primary" href="#materi" id="cta-start">Mulai belajar</a>
+        <a class="btn" href="#literasi">Uji literasi digital</a>
+      </div>
+    </div>
+    <aside class="board" aria-label="Progres belajar">
+      <h2>Alur kerja sistem komputer</h2>
+      <div class="pipeline" aria-hidden="true">
+        <div><b>1</b>INPUT</div><div><b>2</b>PROSES</div><div><b>3</b>OUTPUT</div><div><b>4</b>STORAGE</div>
+      </div>
+      <h2 style="margin-top:6px">Progres belajarmu</h2>
+      <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="home-meter"><i id="home-bar" style="width:0%"></i></div>
+      <div class="stat"><span>Materi selesai</span><b id="home-mod">0 / 5</b></div>
+      <div class="stat"><span>Nilai kuis terbaik</span><b id="home-quiz">belum ada</b></div>
+    </aside>
+  </div>
+
+  <h2 class="section-title">Apa yang ada di sini</h2>
+  <div class="grid3">
+    <a class="tile" href="#materi" style="text-decoration:none"><span class="tag">5 modul</span><h3>Materi Sistem Komputer</h3><p>Dari pengertian sistem komputer, perangkat keras, sistem operasi, sampai representasi data dan keamanan dasar.</p></a>
+    <a class="tile" href="#kuis" style="text-decoration:none"><span class="tag">10 soal</span><h3>Kuis interaktif</h3><p>Jawaban langsung diperiksa dan disertai pembahasan, jadi kamu tahu letak salahnya.</p></a>
+    <a class="tile" href="#literasi" style="text-decoration:none"><span class="tag">4 kecakapan</span><h3>Latihan literasi digital</h3><p>Cek kekuatan kata sandi dan periksa kabar mencurigakan sebelum kamu membagikannya.</p></a>
+  </div>
+
+  <h2 class="section-title">Empat kecakapan literasi digital</h2>
+  <div class="grid3">
+    <div class="tile"><span class="tag">Mencari</span><h3>Menemukan informasi</h3><p>Memakai kata kunci yang tepat dan memilih sumber yang bisa dipertanggungjawabkan.</p></div>
+    <div class="tile"><span class="tag">Memilah</span><h3>Menilai kebenaran</h3><p>Mengecek penulis, tanggal, dan bukti sebelum percaya pada sebuah kabar.</p></div>
+    <div class="tile"><span class="tag">Mengamankan</span><h3>Menjaga akun dan data</h3><p>Kata sandi kuat, waspada tautan palsu, dan menjaga data pribadi.</p></div>
+    <div class="tile"><span class="tag">Beretika</span><h3>Berperilaku baik di ruang digital</h3><p>Menghargai karya orang lain, sopan dalam berkomentar, dan bertanggung jawab atas unggahan.</p></div>
+  </div>
+</section>
+
+<!-- MATERI -->
+<section class="view" id="v-materi" hidden>
+  <div class="eyebrow">Materi</div>
+  <h1 style="font-size:clamp(26px,4vw,36px);margin:8px 0 24px">Lima modul Sistem Komputer</h1>
+  <div class="reader">
+    <div class="modlist" id="modlist" role="tablist" aria-label="Daftar modul"></div>
+    <article class="article" id="article" tabindex="-1"></article>
+  </div>
+</section>
+
+<!-- KUIS -->
+<section class="view" id="v-kuis" hidden>
+  <div class="eyebrow">Kuis</div>
+  <h1 style="font-size:clamp(26px,4vw,36px);margin:8px 0 24px">Seberapa paham kamu?</h1>
+  <div class="panel" id="quiz"></div>
+</section>
+
+<!-- LITERASI -->
+<section class="view" id="v-literasi" hidden>
+  <div class="eyebrow">Literasi digital</div>
+  <h1 style="font-size:clamp(26px,4vw,36px);margin:8px 0 8px">Latihan kecakapan digital</h1>
+  <p style="color:var(--muted);margin-bottom:24px;max-width:60ch">Dua latihan singkat. Kata sandi yang kamu ketik tidak dikirim ke mana pun dan tidak disimpan. Meski begitu, jangan memakai kata sandi akun aslimu di sini.</p>
+  <div class="two">
+    <div class="panel">
+      <span class="pill">Mengamankan</span>
+      <h2 style="font-size:21px;margin:10px 0 12px">Pemeriksa kata sandi</h2>
+      <label class="fld" for="pw">Ketik kata sandi contoh
+        <input type="text" id="pw" autocomplete="off" spellcheck="false" placeholder="mis. Kucing#Medan2026">
+      </label>
+      <div class="strength" id="pw-bars"><i></i><i></i><i></i><i></i></div>
+      <div id="pw-label" style="font-weight:600">Belum diisi</div>
+      <ul class="checks" id="pw-checks">
+        <li data-k="len">Minimal 12 karakter</li>
+        <li data-k="up">Ada huruf besar</li>
+        <li data-k="low">Ada huruf kecil</li>
+        <li data-k="num">Ada angka</li>
+        <li data-k="sym">Ada simbol (! @ # $ dst.)</li>
+      </ul>
+      <p style="color:var(--muted);font-size:14px;margin-top:12px">Tip: kalimat panjang yang mudah kamu ingat biasanya lebih kuat daripada satu kata rumit.</p>
+    </div>
+    <div class="panel">
+      <span class="pill">Memilah</span>
+      <h2 style="font-size:21px;margin:10px 0 4px">Periksa sebuah kabar</h2>
+      <p style="color:var(--muted);font-size:14px">Pikirkan satu kabar yang baru kamu terima di grup chat, lalu centang yang berlaku.</p>
+      <div id="hoax" style="margin-top:8px"></div>
+      <div class="verdict warn" id="hoax-verdict" role="status">Centang pernyataan di atas untuk melihat penilaian.</div>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="font-size:20px">Sebelum membagikan, tanyakan empat hal</h2>
+  <div class="grid3">
+    <div class="tile"><h3>Siapa penulisnya?</h3><p>Cari nama media atau lembaga yang jelas, bukan akun tanpa identitas.</p></div>
+    <div class="tile"><h3>Kapan dibuat?</h3><p>Berita lama sering dipakai ulang seolah baru terjadi.</p></div>
+    <div class="tile"><h3>Ada buktinya?</h3><p>Cari foto, data, atau kutipan yang bisa dicek ke sumber aslinya.</p></div>
+    <div class="tile"><h3>Apa dampaknya jika salah?</h3><p>Jika ragu, lebih baik tidak dibagikan dulu.</p></div>
+  </div>
+</section>
+
+<!-- REKAP (khusus guru) -->
+<section class="view" id="v-rekap" hidden>
+  <div class="eyebrow">Khusus guru</div>
+  <h1 style="font-size:clamp(26px,4vw,36px);margin:8px 0 24px">Rekap nilai siswa</h1>
+  <div id="rekap-body" style="color:var(--muted)"></div>
+</section>
+
+<!-- TENTANG -->
+<section class="view" id="v-tentang" hidden>
+  <div class="eyebrow">Tentang</div>
+  <h1 style="font-size:clamp(26px,4vw,36px);margin:8px 0 24px">Tentang media pembelajaran ini</h1>
+  <div class="panel" style="max-width:860px">
+    <dl>
+      <dt>Judul penelitian</dt><dd>Rancang Bangun Media Pembelajaran Berbasis Website pada Mata Pelajaran Sistem Komputer untuk Meningkatkan Literasi Digital Siswa di SMK Telkom 2 Medan</dd>
+      <dt>Sasaran pengguna</dt><dd>Siswa SMK Telkom 2 Medan yang mengikuti mata pelajaran Sistem Komputer.</dd>
+      <dt>Tujuan</dt><dd>Menyediakan materi yang bisa diakses kapan saja dan melatih literasi digital lewat simulasi, kuis, dan studi kasus.</dd>
+      <dt>Fitur</dt><dd>Lima modul materi, simulasi konversi biner, kuis 10 soal dengan pembahasan, pemeriksa kata sandi, dan pemeriksa kabar.</dd>
+      <dt>Penyimpanan progres</dt><dd>Akun dan progres belajar tersimpan di database server, jadi bisa dibuka dari perangkat mana pun. Guru dapat melihat rekap nilai siswa.</dd>
+      <dt>Pengembang</dt><dd><span class="mono">[Nama peneliti]</span>, <span class="mono">[Program studi / institusi]</span></dd>
+      <dt>Pembimbing</dt><dd><span class="mono">[Nama dosen pembimbing]</span></dd>
+    </dl>
+  </div>
+  <footer>Isi bagian Pengembang dan Pembimbing dengan data aslimu. Materi disusun sebagai dasar dan dapat disesuaikan dengan silabus guru mata pelajaran.</footer>
+</section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
